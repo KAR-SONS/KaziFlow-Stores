@@ -21,10 +21,9 @@ const Login = () => {
     checkUser();
   }, []);*/}
 
-  console.log(storeSlug);
-
   const handleLogin = async (e) => {
     e.preventDefault();
+    const { data: { user } } = await supabase.auth.getUser()
 
     const { error } = await supabase.auth.signInWithPassword({
       email,

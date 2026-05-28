@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import supabase from '../supabaseClient'
+import { createClient } from '@supabase/supabase-js'
 
 const ProfileSetup = () => {
     const [storeName, setStoreName] = useState('')
@@ -37,32 +38,48 @@ const ProfileSetup = () => {
         fetchUser()
     }, [])
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+   const handleSubmit = async (e) => {
+    e.preventDefault()
 
-        if (!user) {
-            console.error('No authenticated user found.')
+    if (!user) return
+
+    const slug = storeName
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w-]/g, '')
+        .slice(0, 50)
+
+    try {
+        const { data, error } = await supabase
+            .from('stores')
+            .insert([
+                {
+                    user_id: user.id,
+                    store_name: storeName,
+                    store_slug: slug,
+                    whatsapp_no: whatsappNumber
+                }
+            ])
+            .select()
+            .single()
+
+        if (error) {
+            console.error(error)
             return
         }
 
-        const formData = {
-            user_id: user.id,
-            store_name: storeName,
-            whatsapp_no: whatsappNumber,
-            store_slug: slug,
-        }
+        // Save locally
+        localStorage.setItem("store_id", data.id)
+        localStorage.setItem("store_slug", data.store_slug)
 
-        try {
-            const res = await axios.post(
-                'http://localhost:8000/create-store/',
-                formData
-            )
+        // Redirect
+        navigate(`/${data.store_slug}/login`)
 
-           navigate(`/${slug}/login`);
-        } catch (err) {
-            console.log(err)
-        }
+    } catch (err) {
+        console.log("Store creation error:", err)
     }
+}
 
     if (loading) {
         return (

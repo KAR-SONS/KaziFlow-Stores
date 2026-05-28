@@ -1,9 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import ProductsTab from './ProductsTab'
 import CategoriesTab from './CategoriesTab'
 
 const SellerDashboard = () => {
+  const { storeId } = useParams()
   const [activeTab, setActiveTab] = React.useState('products')
 
   const onTabChange = (tabId) => {
@@ -58,7 +59,7 @@ const SellerDashboard = () => {
 
     <main className="flex-1">
           {activeTab === 'products' && <ProductsTab />}
-          {activeTab === 'categories' && <CategoriesTab />}
+          {activeTab === 'categories' && <CategoriesTab storeId={storeId} />}
         </main>
     </div>
     </div>
