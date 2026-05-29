@@ -75,8 +75,8 @@ const SellerDashboard = () => {
       <header className="w-full bg-white border-b border-[oklch(0.92_0.01_70)] sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Link to="/" className="text-2xl font-bold text-[oklch(0.2_0.010_70)]">
-            Shop
+          <Link to="#" className="text-2xl font-bold text-[oklch(0.2_0.010_70)]">
+            KAZIFLOW <span className='text-xl font-semibold '>stores</span>
           </Link>
           <div className="hidden sm:block h-6 w-px bg-[oklch(0.92_0.01_70)]"></div>
           <span className="hidden sm:inline-block text-sm text-[oklch(0.5_0.01_0)]">Seller Dashboard</span>
@@ -84,9 +84,6 @@ const SellerDashboard = () => {
         <div className="flex items-center gap-4">
           <button className="px-4 py-2 text-sm text-[oklch(0.5_0.01_0)] hover:text-foreground transition-colors">
             Your Store
-          </button>
-          <button className="px-4 py-2 text-md bg-[oklch(0.88_0.005_70)] text-[oklch(0.2_0.01_0)] rounded-lg hover:bg-muted/80 transition-colors">
-            Logout
           </button>
         </div>
       </div>

@@ -7,11 +7,9 @@ const Header = () => {
         <div className="flex items-start justify-between">
           <div className="flex flex-col gap-2">
             <h1 className="text-4xl sm:text-5xl font-bold text-[oklch(0.20_0.01_0)] tracking-tight">
-              Shop
+              KAZIFLOW<span className='text-xl font-semibold '>.stores</span>
             </h1>
-            <p className="text-base sm:text-lg text-[oklch(0.50_0.01_0)]">
-              Discover curated products from your favorite shop
-            </p>
+            
           </div>
         </div>
       </div>
