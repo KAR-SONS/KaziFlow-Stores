@@ -1,11 +1,66 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ProductsTab from './ProductsTab'
 import CategoriesTab from './CategoriesTab'
+import supabase from '../supabaseClient'
+import { useNavigate } from 'react-router-dom'
 
 const SellerDashboard = () => {
-  const { storeId } = useParams()
-  const [activeTab, setActiveTab] = React.useState('products')
+  const [store, setStore] = useState(null)
+  const [activeTab, setActiveTab] = useState('products')
+  const [isOwner, setIsOwner] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+
+    const fetchStore = async () => {
+
+      // get logged in user
+      const { data: { user } } = await supabase.auth.getUser()
+
+      if (!user) {
+        setLoading(false)
+        return
+      }
+
+      // fetch user's store
+      const { data, error } = await supabase
+        .from('stores')
+        .select('*')
+        .eq('user_id', user.id)
+        .single()
+
+      if (error) {
+        console.error(error)
+      } else {
+        setStore(data)
+
+        // optional
+        localStorage.setItem("store_id", data.id)
+      }
+
+      setLoading(false)
+    }
+
+    fetchStore()
+
+  }, [])
+  if (loading) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      Loading dashboard...
+    </div>
+  )
+}
+
+  if (!store) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        No store found
+      </div>
+    )
+  }
 
   const onTabChange = (tabId) => {
     setActiveTab(tabId)
@@ -57,9 +112,24 @@ const SellerDashboard = () => {
       </div>
     </nav>
 
-    <main className="flex-1">
-          {activeTab === 'products' && <ProductsTab />}
-          {activeTab === 'categories' && <CategoriesTab storeId={storeId} />}
+    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-2 z-50">
+      {tabs.map((tab) => (
+        <button
+          key={tab.id}
+          onClick={() => onTabChange(tab.id)}
+          className={`flex flex-col items-center text-xs ${
+            activeTab === tab.id ? 'text-orange-600' : 'text-gray-500'
+          }`}
+        >
+          <span className="text-lg">{tab.icon}</span>
+          {tab.label}
+        </button>
+      ))}
+    </div>
+
+    <main className="flex-1 pb-16 md:pb-0">
+          {activeTab === 'products' && <ProductsTab store={store}/>}
+          {activeTab === 'categories' && <CategoriesTab store={store} />}
         </main>
     </div>
     </div>

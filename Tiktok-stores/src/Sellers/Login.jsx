@@ -9,17 +9,17 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  {/*useEffect(() => {
+  useEffect(() => {
     const checkUser = async () => {
       const { data } = await supabase.auth.getUser();
 
       if (data?.user) {
-        navigate("/seller-dashboard");
+        navigate(`/${storeSlug}/seller-dashboard`);
       }
     };
 
     checkUser();
-  }, []);*/}
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();

@@ -6,6 +6,7 @@ import ProfileSetup from './Sellers/ProfileSetup';
 import Login from './Sellers/Login';
 import SellerDashboard from './Sellers/SellerDashboard';
 import ProductPage from './Pages/ProductPage';
+import ProductDetail from './Pages/ProductDetail';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/:storeSlug/login" element={<Login />} />
         <Route path='/:storeSlug/seller-dashboard' element={<SellerDashboard />} />
         <Route path='/:storeSlug' element={<ProductPage />} />
+        <Route path="/:storeSlug/product/:productId" element={<ProductDetail />} />
       </Routes>
     </Router>
   )
