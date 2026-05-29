@@ -1,16 +1,16 @@
 import React,{useEffect, useState} from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import ProductsTab from './ProductsTab'
 import CategoriesTab from './CategoriesTab'
 import supabase from '../supabaseClient'
-import { useNavigate } from 'react-router-dom'
 
 const SellerDashboard = () => {
+  const { storeSlug } = useParams()
+  const navigate = useNavigate()
   const [store, setStore] = useState(null)
   const [activeTab, setActiveTab] = useState('products')
   const [isOwner, setIsOwner] = useState(false)
   const [loading, setLoading] = useState(true)
-  const navigate = useNavigate()
 
   useEffect(() => {
 
@@ -20,7 +20,7 @@ const SellerDashboard = () => {
       const { data: { user } } = await supabase.auth.getUser()
 
       if (!user) {
-        setLoading(false)
+        navigate(`/${storeSlug}/login`)
         return
       }
 
@@ -33,6 +33,7 @@ const SellerDashboard = () => {
 
       if (error) {
         console.error(error)
+        navigate(`/${storeSlug}/login`)
       } else {
         setStore(data)
 
@@ -45,7 +46,7 @@ const SellerDashboard = () => {
 
     fetchStore()
 
-  }, [])
+  }, [storeSlug, navigate])
   if (loading) {
   return (
     <div className="min-h-screen flex items-center justify-center">

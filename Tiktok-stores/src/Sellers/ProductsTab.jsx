@@ -173,6 +173,8 @@ const ProductsTab = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
+    setError('')
 
     try {
       // 1. create product
@@ -193,6 +195,8 @@ const ProductsTab = () => {
 
       if (error) {
         console.error(error)
+        setError('Failed to create product. Please try again.')
+        setLoading(false)
         return
       }
 
@@ -217,6 +221,9 @@ const ProductsTab = () => {
 
     } catch (err) {
       console.error(err)
+      setError('An error occurred while creating the product. Please try again.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -470,9 +477,16 @@ const ProductsTab = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="rounded-xl bg-[oklch(0.35_0.08_50)] px-6 py-3 text-sm font-semibold text-white hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="rounded-xl bg-[oklch(0.35_0.08_50)] px-6 py-3 text-sm font-semibold text-white hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  {loading ? 'Saving...' : 'Save Product'}
+                  {loading ? (
+                    <>
+                      <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                      Creating...
+                    </>
+                  ) : (
+                    'Save Product'
+                  )}
                 </button>
               </div>
             </form>
