@@ -234,7 +234,7 @@ const ProductPage = () => {
 
                 {/* CTA */}
                 <Link
-                  to={`/${store?.store_name}/product/${product.id}`}
+                  to={`/${store?.store_slug}/product/${product.id}`}
                   className="mt-5 flex items-center justify-center rounded-2xl bg-[oklch(0.35_0.08_50)] px-5 py-4 text-white font-medium"
                 >
                   View Product
