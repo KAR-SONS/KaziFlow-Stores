@@ -9,30 +9,25 @@ const ProductCard = ({ product }) => {
     <div className="rounded-3xl overflow-hidden bg-white border">
 
       {/* Images */}
-      <div
-        className="relative flex overflow-x-auto snap-x snap-mandatory scrollbar-hide"
-        onScroll={(e) => {
-
-          const scrollLeft = e.target.scrollLeft
-          const width = e.target.clientWidth
-
-          const index = Math.round(scrollLeft / width)
-
-          setCurrentIndex(index)
-        }}
-      >
-
-        {product.product_images?.map((img, index) => (
-
-          <img
-            key={index}
-            src={img.image_url}
-            alt={product.name}
-            className="w-full h-[500px] object-cover flex-shrink-0 snap-center"
-          />
-
-        ))}
-
+      <div className="relative overflow-hidden">
+        <div
+          className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide min-h-[260px] md:min-h-[320px]"
+          onScroll={(e) => {
+            const scrollLeft = e.target.scrollLeft
+            const width = e.target.clientWidth
+            const index = Math.round(scrollLeft / width)
+            setCurrentIndex(index)
+          }}
+        >
+          {product.product_images?.map((img, index) => (
+            <img
+              key={index}
+              src={img.image_url}
+              alt={product.name}
+              className="min-w-full h-[260px] md:h-[320px] lg:h-[380px] object-cover flex-shrink-0 snap-center"
+            />
+          ))}
+        </div>
       </div>
 
       {/* Slider dots */}

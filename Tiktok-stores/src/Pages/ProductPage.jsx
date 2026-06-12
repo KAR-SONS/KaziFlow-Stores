@@ -138,49 +138,44 @@ const ProductPage = () => {
         </div>
         </div>
 
-         {/* Products */}
-    <div className="flex flex-col gap-8 p-4">
+             {/* Products */}
+        <div className="grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 xl:grid-cols-3">
 
-        {products.map((product) => {
-          const message = `🛍️ *${product.name}*
+          {products.map((product) => {
+            const message = `🛍️ *${product.name}*
 
-            💰 Price: KSh ${product.price}
+              💰 Price: KSh ${product.price}
 
-            📦 Store: ${store?.store_name || ''}
+              📦 Store: ${store?.store_name || ''}
 
-            Hi 👋 I'm interested. Is it available?`
+              Hi 👋 I'm interested. Is it available?`
 
-          return (
-            <div
-              key={product.id}
-              className="bg-white rounded-3xl overflow-hidden shadow-sm border border-[oklch(0.92_0.01_70)]"
-            >
-
-              {/* Images */}
-              <div className="relative bg-[oklch(0.88_0.005_70)] flex overflow-x-auto snap-x snap-mandatory scrollbar-hide"
-                onScroll={(e) => {
-
-                  const scrollLeft = e.target.scrollLeft
-                  const width = e.target.clientWidth
-
-                  const index = Math.round(scrollLeft / width)
-
-                  setCurrentIndex(index)
-                }}
+            return (
+              <div
+                key={product.id}
+                className="flex flex-col overflow-hidden rounded-xl bg-white border border-[oklch(0.92_0.01_100)] shadow-sm"
               >
 
-                {product.product_images?.map((img, index) => (
-
-                  <img
-                    key={index}
-                    src={img.image_url}
-                    alt={product.name}
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
-                  />
-
-                ))}
-
+              {/* Images */}
+              <div className="relative bg-[oklch(0.88_0.005_70)] overflow-hidden">
+                <div
+                  className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide min-h-[260px] md:min-h-[320px]"
+                  onScroll={(e) => {
+                    const scrollLeft = e.target.scrollLeft
+                    const width = e.target.clientWidth
+                    const index = Math.round(scrollLeft / width)
+                    setCurrentIndex(index)
+                  }}
+                >
+                  {product.product_images?.map((img, index) => (
+                    <img
+                      key={index}
+                      src={img.image_url}
+                      alt={product.name}
+                      className="min-w-full h-[260px] md:h-[320px] lg:h-[380px] object-cover flex-shrink-0 snap-center"
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Slider dots */}
@@ -192,7 +187,7 @@ const ProductPage = () => {
 
                     <div
                       key={index}
-                      className={` w-2 object-contain rounded-full transition-all ${
+                      className={`h-2 w-2 rounded-full transition-all ${
                         currentIndex === index
                           ? 'bg-black w-5'
                           : 'bg-gray-300'
@@ -222,12 +217,12 @@ const ProductPage = () => {
                     )}
                   </div>
 
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-md text-gray-500 mt-1">
                     {product.description}
                   </p>
 
                   <div className="text-lg text-[oklch(0.35_0.08_50)] font-semibold">
-                    KSh {product.price}
+                    KSh {product.price?.toLocaleString('en-US')}
                   </div>
 
                 </div>
