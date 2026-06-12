@@ -83,7 +83,10 @@ const SellerDashboard = () => {
           <span className="hidden sm:inline-block text-sm text-[oklch(0.5_0.01_0)]">Seller Dashboard</span>
         </div>
         <div className="flex items-center gap-4">
-          <button className="px-4 py-2 text-sm text-[oklch(0.5_0.01_0)] hover:text-foreground transition-colors">
+          <button
+            onClick={() => navigate(`/${store?.store_slug}`)}
+            className="px-4 py-2 text-md text-[oklch(0.5_0.01_0)] hover:text-foreground transition-colors"
+          >
             Your Store
           </button>
         </div>
