@@ -11,21 +11,30 @@ const Login = () => {
 
   useEffect(() => {
     const checkUser = async () => {
-      const { data } = await supabase.auth.getUser();
+      const { data, error } = await supabase.auth.getUser();
+      const user = data?.user;
 
-      if (data?.user) {
-        navigate(`/${storeSlug}/seller-dashboard`);
+      if (!user) return;
+
+      const { data: storeData } = await supabase
+        .from('stores')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('store_slug', storeSlug)
+        .single();
+
+      if (storeData) {
+        navigate(`/${storeSlug}/seller-dashboard`, { replace: true });
       }
     };
 
     checkUser();
-  }, []);
+  }, [navigate, storeSlug]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const { data: { user } } = await supabase.auth.getUser()
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -35,7 +44,12 @@ const Login = () => {
       return;
     }
 
-    alert("Login successful");
+    if (!data?.user) {
+      alert('Unable to log in. Please try again.');
+      return;
+    }
+
+    alert('Login successful');
     navigate(`/${storeSlug}/seller-dashboard`);
   };
   return (

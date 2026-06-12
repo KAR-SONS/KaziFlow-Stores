@@ -29,18 +29,23 @@ const SellerDashboard = () => {
         .from('stores')
         .select('*')
         .eq('user_id', user.id)
+        .eq('store_slug', storeSlug)
         .single()
 
       if (error) {
         console.error(error)
-        navigate(`/${storeSlug}/login`)
-      } else {
-        setStore(data)
-
-        // optional
-        localStorage.setItem("store_id", data.id)
+        setLoading(false)
+        return
       }
 
+      if (!data) {
+        console.warn('Logged-in user has no matching store for this seller path.')
+        setLoading(false)
+        return
+      }
+
+      setStore(data)
+      localStorage.setItem('store_id', data.id)
       setLoading(false)
     }
 
@@ -57,8 +62,25 @@ const SellerDashboard = () => {
 
   if (!store) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        No store found
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6 px-6 text-center">
+        <p className="text-2xl font-semibold text-gray-800">No store found for this account.</p>
+        <p className="max-w-lg text-gray-500">
+          You may be logged in with a different account, or this store slug doesn&apos;t belong to your seller profile.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <button
+            onClick={() => navigate('/profile-setup')}
+            className="rounded-lg bg-[oklch(0.35_0.08_50)] px-5 py-3 text-white font-medium"
+          >
+            Create a store
+          </button>
+          <button
+            onClick={() => navigate(`/${storeSlug}/login`)}
+            className="rounded-lg border border-[oklch(0.92_0.01_70)] px-5 py-3 text-[oklch(0.2_0.01_0)] font-medium"
+          >
+            Back to Login
+          </button>
+        </div>
       </div>
     )
   }
