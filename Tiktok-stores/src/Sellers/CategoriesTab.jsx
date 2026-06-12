@@ -116,7 +116,7 @@ const CategoriesTab = () => {
         {categories.map((category) => (
           <div
             key={category.id}
-            className="p-6 bg-white border border-[oklch(0.92_0.01_70)] rounded-lg hover:border-primary/50 transition-colors"
+            className="p-6 bg-white border border-[oklch(0.5_0_0)] rounded-lg hover:border-primary/50 transition-colors"
           >
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
@@ -166,7 +166,7 @@ const CategoriesTab = () => {
                     onChange={(e) => setCategoryName(e.target.value)}
                     required
                     disabled={loading}
-                    className="w-full rounded-xl border border-[oklch(0.92_0.01_70)] px-4 py-3 text-md focus:border-[oklch(0.35_0.08_50)] focus:outline-none disabled:opacity-50"
+                    className="w-full rounded-xl border border-[oklch(0.5_0_0)] px-4 py-3 text-md focus:border-[oklch(0.35_0.08_50)] focus:outline-none disabled:opacity-50"
                   />
                 </div>
                 </div>
@@ -176,7 +176,7 @@ const CategoriesTab = () => {
                 type="button"
                 onClick={handleCloseModal}
                 disabled={loading}
-                className="rounded-xl border border-[oklch(0.92_0.01_70)] px-6 py-3 text-sm font-semibold text-[oklch(0.2_0.01_0)] hover:bg-[oklch(0.98_0.002_70)] transition-all disabled:opacity-50"
+                className="rounded-xl border border-[oklch(0.5_0_0)] px-6 py-3 text-sm font-semibold text-[oklch(0.2_0.01_0)] hover:bg-[oklch(0.98_0.002_70)] transition-all disabled:opacity-50"
               >
                 Cancel
               </button>

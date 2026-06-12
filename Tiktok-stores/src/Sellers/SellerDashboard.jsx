@@ -115,11 +115,11 @@ const SellerDashboard = () => {
         <button
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
-          className={`flex flex-col items-center text-xs ${
+          className={`flex flex-col items-center text-md font-medium ${
             activeTab === tab.id ? 'text-orange-600' : 'text-gray-500'
           }`}
         >
-          <span className="text-lg">{tab.icon}</span>
+          <span className="text-xl">{tab.icon}</span>
           {tab.label}
         </button>
       ))}

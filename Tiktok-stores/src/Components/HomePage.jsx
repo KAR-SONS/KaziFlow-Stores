@@ -95,7 +95,7 @@ const HomePage = () => {
               <h4 className="text-2xl font-bold text-[oklch(0.2_0.01_0)] mb-2">Pro</h4>
               <p className="text-[oklch(0.5_0.01_0)] mb-6">For all businesses</p>
               <div className="mb-6">
-                <span className="text-4xl font-bold text-[oklch(0.2_0.01_0)]">Kes 1,499</span>
+                <span className="text-4xl font-bold text-[oklch(0.2_0.01_0)]">Kes 2,499</span>
                 <span className="text-[oklch(0.5_0.01_0)] pl-5">One Time Payment</span>
               </div>
               <ul className="space-y-4 mb-8">

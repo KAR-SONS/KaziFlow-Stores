@@ -31,7 +31,8 @@ const ProductDetail = () => {
             *,
             product_images (
               image_url
-            )
+            ),
+            category:categories(name)
           `)
           .eq('id', productId)
           .single()
@@ -164,13 +165,13 @@ const ProductDetail = () => {
             </div>
 
             {/* Price */}
-            <div className="text-4xl font-bold text-[oklch(0.35_0.08_50)]">
+            <div className="text-3xl font-bold text-[oklch(0.35_0.08_50)]">
               KSh {product.price?.toLocaleString('en-US')}
             </div>
 
             {/* Description */}
             <div>
-              <h3 className="text-sm font-semibold text-gray-600 mb-2">
+              <h3 className="text-md font-semibold text-gray-800 mb-2">
                 Description
               </h3>
               <p className="text-base text-gray-700 leading-relaxed">
@@ -183,7 +184,7 @@ const ProductDetail = () => {
               <div className="grid grid-cols-2 gap-4 py-4 border-t border-b border-[oklch(0.92_0.01_70)]">
                 {product.category_id && (
                   <div>
-                    <p className="text-sm font-semibold text-gray-600 mb-1">
+                    <p className="text-md font-semibold text-gray-800 mb-1">
                       Category
                     </p>
                     <p className="text-base text-gray-800">
@@ -193,7 +194,7 @@ const ProductDetail = () => {
                 )}
                 {product.stock !== undefined && (
                   <div>
-                    <p className="text-sm font-semibold text-gray-600 mb-1">
+                    <p className="text-md font-semibold text-gray-800 mb-1">
                       Stock
                     </p>
                     <p className="text-base text-green-700">

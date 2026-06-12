@@ -192,7 +192,7 @@ const ProductPage = () => {
 
                     <div
                       key={index}
-                      className={`h-2 w-2 rounded-full transition-all ${
+                      className={` w-2 object-contain rounded-full transition-all ${
                         currentIndex === index
                           ? 'bg-black w-5'
                           : 'bg-gray-300'

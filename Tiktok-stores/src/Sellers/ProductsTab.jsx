@@ -51,8 +51,8 @@ const ProductsTab = () => {
         const { data, error: fetchErr } = await supabase
           .from('categories')
           .select('*')
+          .eq('store_id', storeId)
           .order('name', { ascending: true })
-
         if (fetchErr) {
           console.error('Error fetching categories:', fetchErr)
           setFetchError('Failed to load categories')
@@ -287,7 +287,7 @@ const ProductsTab = () => {
           >
             <div className="flex items-center gap-3">
               <div>
-                <p className="font-medium text-[oklch(0.2_0.01_0)] text-md sm:text-base">{product.name}</p>
+                <p className="font-medium text-[oklch(0.2_0.01_0)] text-xl sm:text-base">{product.name}</p>
                 <p className="text-sm font-medium text-[oklch(0.5_0.01_0)] md:hidden">{product.category}</p>
               </div>
             </div>
@@ -337,17 +337,17 @@ const ProductsTab = () => {
               
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-[oklch(0.2_0.01_0)]">Product Name</label>
+                  <label className="block text-md font-semibold text-[oklch(0.2_0.01_0)]">Product Name</label>
                   <input
                     type="text"
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
                     required
-                    className="w-full rounded-xl border border-[oklch(0.92_0.01_70)] px-4 py-3 text-sm focus:border-[oklch(0.35_0.08_50)] focus:outline-none"
+                    className="w-full rounded-xl border border-[oklch(0.5_0_0)] px-4 py-3 text-md font-medium focus:border-[oklch(0.35_0.08_50)] focus:outline-none"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-[oklch(0.2_0.01_0)]">Price</label>
+                  <label className="block text-md font-semibold text-[oklch(0.2_0.01_0)]">Price</label>
                   <input
                     type="number"
                     min="0"
@@ -355,28 +355,28 @@ const ProductsTab = () => {
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                     required
-                    className="w-full rounded-xl border border-[oklch(0.92_0.01_70)] px-4 py-3 text-sm focus:border-[oklch(0.35_0.08_50)] focus:outline-none"
+                    className="w-full rounded-xl border border-[oklch(0.5_0_0)] px-4 py-3 text-md font-medium focus:border-[oklch(0.35_0.08_50)] focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-semibold text-[oklch(0.2_0.01_0)]">Description (Optional)</label>
+                <label className="block text-md font-semibold text-[oklch(0.2_0.01_0)]">Description (Optional)</label>
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows="4"
-                  className="w-full rounded-xl border border-[oklch(0.92_0.01_70)] px-4 py-3 text-sm focus:border-[oklch(0.35_0.08_50)] focus:outline-none"
+                  className="w-full rounded-xl border border-[oklch(0.5_0_0)] px-4 py-3 text-md font-medium focus:border-[oklch(0.35_0.08_50)] focus:outline-none"
                 />
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-[oklch(0.2_0.01_0)]">Category</label>
+                  <label className="block text-md font-semibold text-[oklch(0.2_0.01_0)]">Category</label>
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="w-full rounded-xl border border-[oklch(0.92_0.01_70)] px-4 py-3 text-sm focus:border-[oklch(0.35_0.08_50)] focus:outline-none"
+                    className="w-full rounded-xl border border-[oklch(0.5_0_0)] px-4 py-3 text-md font-medium focus:border-[oklch(0.35_0.08_50)] focus:outline-none"
                   >
                     <option value="">Select a category</option>
                     {categories.map((category) => (
@@ -387,26 +387,26 @@ const ProductsTab = () => {
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <label className="block text-sm font-semibold text-[oklch(0.2_0.01_0)]">Stock Quantity (Optional)</label>
+                  <label className="block text-md font-semibold text-[oklch(0.2_0.01_0)]">Stock Quantity (Optional)</label>
                   <input
                     type="number"
                     min="0"
                     value={stockQuantity}
                     onChange={(e) => setStockQuantity(e.target.value)}
-                    className="w-full rounded-xl border border-[oklch(0.92_0.01_70)] px-4 py-3 text-sm focus:border-[oklch(0.35_0.08_50)] focus:outline-none"
+                    className="w-full rounded-xl border border-[oklch(0.5_0_0)] px-4 py-3 text-md font-medium focus:border-[oklch(0.35_0.08_50)] focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="space-y-3">
-                <p className="text-sm font-semibold text-[oklch(0.2_0.01_0)]">Category quick pickers</p>
+                <p className="text-md font-semibold text-[oklch(0.2_0.01_0)]">Category quick pickers</p>
                 <div className="flex flex-wrap gap-2">
                   {categories.map((category) => (
                     <button
                       key={category.id}
                       type="button"
                       onClick={() => setSelectedCategory(category.id || category.name)}
-                      className={`rounded-full border px-4 py-2 text-sm transition ${
+                      className={`rounded-full border px-4 py-2 text-md font-medium transition ${
                         selectedCategory === (category.id || category.name)
                           ? 'bg-[oklch(0.35_0.08_50)] text-white border-transparent'
                           : 'bg-white text-[oklch(0.2_0.01_0)] border-[oklch(0.92_0.01_70)] hover:border-[oklch(0.35_0.08_50)]'
@@ -419,7 +419,7 @@ const ProductsTab = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-semibold text-[oklch(0.2_0.01_0)]">Image URLs</label>
+                <label className="block text-md font-semibold text-[oklch(0.2_0.01_0)]">Image URLs</label>
                 <div className="flex gap-2 flex-col sm:flex-row">
                   <input
                     ref={fileInputRef}
@@ -470,7 +470,7 @@ const ProductsTab = () => {
                   type="button"
                   onClick={handleCloseModal}
                   disabled={loading}
-                  className="rounded-xl border border-[oklch(0.92_0.01_70)] px-6 py-3 text-sm font-semibold text-[oklch(0.2_0.01_0)] hover:bg-[oklch(0.98_0.002_70)] transition-all disabled:opacity-50"
+                  className="rounded-xl border border-[oklch(0.5_0_0)] px-6 py-3 text-sm font-semibold text-[oklch(0.2_0.01_0)] hover:bg-[oklch(0.98_0.002_70)] transition-all disabled:opacity-50"
                 >
                   Cancel
                 </button>
